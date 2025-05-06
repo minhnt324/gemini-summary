@@ -48,7 +48,7 @@ def extract_text_from_pdf_url(url):
 
 def summarize_with_gemini(text):
     try:
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         response = model.generate_content(f"Tóm tắt nội dung sau bằng tiếng Việt:\n\n{text}")
         return response.text
     except Exception as e:
