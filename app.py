@@ -13,13 +13,31 @@ model = genai.GenerativeModel("gemini-pro")
 
 def extract_text_from_url(url):
     try:
-        res = requests.get(url, timeout=10)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+        }
+        res = requests.get(url, headers=headers, timeout=10)
+
+        if res.status_code != 200:
+            return f"❌ Lỗi truy cập URL (HTTP {res.status_code})"
+
         soup = BeautifulSoup(res.text, 'html.parser')
-        text = ' '.join(p.get_text() for p in soup.find_all('p'))
-        return text.strip()
+
+        # Ưu tiên lấy nội dung chính từ class text-content
+        content_div = soup.find('div', class_='text-content')
+        if content_div:
+            return content_div.get_text(separator='\n', strip=True)
+
+        # Nếu không có, fallback về tiêu đề + heading + <p>
+        title = soup.title.string if soup.title else ""
+        headings = ' '.join(h.get_text(strip=True) for h in soup.find_all(['h1', 'h2', 'h3']))
+        paragraphs = ' '.join(p.get_text(strip=True) for p in soup.find_all('p'))
+
+        content = f"{title}\n{headings}\n{paragraphs}"
+        return content.strip() if content.strip() else "⚠️ Không tìm thấy nội dung trong bài viết."
     except Exception as e:
         return f"❌ Lỗi khi truy cập bài viết: {str(e)}"
-
+    
 @app.route('/', methods=['GET', 'POST'])
 def index():
     summary = ""
