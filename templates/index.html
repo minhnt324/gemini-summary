@@ -17,8 +17,11 @@
         <button type="submit">Tóm tắt</button>
     </form>
     {% if summary %}
-    <h3>📄 Nội dung tóm tắt:</h3>
-    <textarea readonly>{{ summary }}</textarea>
+      <h3>Kết quả tóm tắt:</h3>
+      <div style="white-space: pre-line; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">
+    {{ summary }}
+      </div>
     {% endif %}
+
 </body>
 </html>
