@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tóm tắt bài viết với Gemini</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial; padding: 30px; }
+        input[type=text] { width: 80%; padding: 10px; }
+        textarea { width: 100%; height: 300px; padding: 10px; margin-top: 20px; }
+        button { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+    <h2>🔎 Tóm tắt bài viết bằng Gemini</h2>
+    <form method="POST">
+        <input type="text" name="url" placeholder="Dán link bài viết..." required>
+        <button type="submit">Tóm tắt</button>
+    </form>
+    {% if summary %}
+    <h3>📄 Nội dung tóm tắt:</h3>
+    <textarea readonly>{{ summary }}</textarea>
+    {% endif %}
+</body>
+</html>

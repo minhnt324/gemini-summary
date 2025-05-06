@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: gemini-summary
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: GEMINI_API_KEY
+        value: YOUR_GEMINI_API_KEY_HERE
