@@ -3,3 +3,5 @@ beautifulsoup4
 cloudscraper
 google-generativeai
 pymupdf
+pytesseract
+Pillow
